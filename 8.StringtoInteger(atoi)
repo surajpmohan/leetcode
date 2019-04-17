@@ -1,0 +1,45 @@
+class Solution {
+    public int myAtoi(String str) {
+        str = str.trim();
+        StringBuffer b = new StringBuffer();
+        Character c = '+';
+        for (int i=0; i<str.length(); i++) {
+            if (i==0 && (str.charAt(i)<'0' || str.charAt(i)>'9')){
+                if (str.charAt(i)=='-' || str.charAt(i) == '+'){
+                    c = str.charAt(i);
+                } else {
+                    break;
+                }
+            } else if (i>0 && (str.charAt(i)<'0' || str.charAt(i)>'9')){
+              break;
+            } else {
+                b.append(str.charAt(i));
+            }
+        }
+        if (b.length()==0) {
+            return 0;
+        }
+        int num = 0;
+        int min = -2147483648;
+        int max = 2147483647;
+        boolean flag = true;
+        try {
+            num = Integer.parseInt(b.toString());
+        } catch (Exception ex) {
+           //num = -2147483648; 
+            flag = false;
+        }
+        if (flag) {
+            if (c=='-') {
+                num = -num;
+            }
+        } else {
+            if (c=='-') {
+                num = min;
+            } else {
+                num = max;
+            }
+        }
+        return num;
+    }
+}
