@@ -1,0 +1,36 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums.length<=0){
+            return new int[0];
+        }
+        List<Integer> list= new ArrayList<>();
+        int max = Integer.MIN_VALUE;
+        for (int i=0; i<k && i<nums.length; i++) {
+            if (nums[i]>max){
+                max = nums[i];
+            }
+        }
+        list.add(max);
+        for (int i=k; i<nums.length; i++){
+            if (nums[i]>max) {
+                max = nums[i];
+            } else if (nums[i-k]==max){
+                int nmax = Integer.MIN_VALUE;
+                for (int j=(i-k)+1; j<=i; j++ ){
+                    //System.out.println(nums[j]);
+                    if (nums[j]>nmax) {
+                        nmax = nums[j];
+                    }
+                }
+                //System.out.println("max:" + max);
+                max = nmax;
+            }
+            list.add(max);
+        }
+        int[] r = new int[list.size()];
+        for (int i=0; i<list.size();i++){
+            r[i] = list.get(i);
+        }
+        return r;
+    }
+}
